@@ -28,3 +28,15 @@ We've all been there. You sit down to focus, but the silence is deafening—or w
 FMAG combines the power of AI audio generation with carefully crafted mood presets to create loop-friendly ambient audio that helps you enter (and stay in) flow state. Whether you need the gentle patter of rain on a coffee shop window or the low hum of a spaceship drifting through the cosmos, FMAG has you covered.
 
 ---
+
+## ✨ Features
+
+- 🎨 **5 Curated Mood Presets** - Carefully designed ambient soundscapes
+- 🤖 **Multiple AI Providers** - Support for AudioGen, Bark, and more
+- 🔄 **Loop-Optimized Audio** - Seamless fade-in, fade-out, and crossfade
+- ⏱️ **Flexible Duration** - Generate 1-5 minute ambient loops
+- 🎛️ **Audio Processing** - Automatic volume normalization
+- 🖥️ **Beautiful CLI** - Rich terminal interface with colors and progress
+- 🎮 **Interactive Mode** - Guided generation for beginners
+
+---
