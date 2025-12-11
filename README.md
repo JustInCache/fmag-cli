@@ -1,4 +1,4 @@
-# 🎧 FMAG CLI - Focus Mode Ambience Generator
+# 🎧  FMAG CLI - Focus Mode Ambience Generator
 
 <div align="center">
 
