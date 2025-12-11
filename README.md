@@ -40,3 +40,10 @@ FMAG combines the power of AI audio generation with carefully crafted mood prese
 - 🎮 **Interactive Mode** - Guided generation for beginners
 
 ---
+
+## 📦 Installation
+
+### Prerequisites
+
+- Python 3.9 or higher
+- FFmpeg (for audio processing)
