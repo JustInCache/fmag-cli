@@ -394,7 +394,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ for focus enthusiasts everywhere**
 
-[Report Bug](https://github.com/fmag-cli/fmag-cli/issues) · [Request Feature](https://github.com/fmag-cli/fmag-cli/issues)
+[Report Bug](https://github.com/JustInCache/fmag-cli/issues) · [Request Feature](https://github.com/JustInCache/fmag-cli/issues)
 
 </div>
 
