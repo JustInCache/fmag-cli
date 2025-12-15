@@ -1,4 +1,4 @@
-# 🎧  FMAG CLI - Focus Mode Ambience Generator
+# 🎧 FMAG CLI - Focus Mode Ambience Generator
 
 <div align="center">
 
@@ -47,3 +47,354 @@ FMAG combines the power of AI audio generation with carefully crafted mood prese
 
 - Python 3.9 or higher
 - FFmpeg (for audio processing)
+
+### Install FFmpeg
+
+```bash
+# macOS
+brew install ffmpeg
+
+# Ubuntu/Debian
+sudo apt install ffmpeg
+
+# Windows (with Chocolatey)
+choco install ffmpeg
+```
+
+### Install FMAG
+
+```bash
+# From PyPI (when published)
+pip install fmag-cli
+
+# From source
+git clone https://github.com/fmag-cli/fmag-cli.git
+cd fmag-cli
+pip install -e .
+```
+
+---
+
+## 🚀 Quick Start
+
+### Interactive Mode
+
+Just run `fmag` without arguments for a guided experience:
+
+```bash
+fmag
+```
+
+```
+┌─ 🎧 FMAG Interactive ────────────────────────────┐
+│ Welcome to Interactive Mode!                      │
+│                                                   │
+│ Let's create the perfect ambient soundscape       │
+│ for your focus session.                           │
+└───────────────────────────────────────────────────┘
+
+Step 1: Select a mood
+
+  1. 🌧️ calm_rain_office
+     Gentle rain falling outside a cozy office window
+  2. 🌲 forest_cafe
+     A peaceful cafe nestled in a forest clearing
+  3. 🚀 deep_focus_spaceship
+     The quiet hum of a spacecraft drifting through deep space
+  4. 🌊 ocean_meditation
+     Waves gently lapping on a secluded beach at sunset
+  5. 🌙 night_coding_lofi
+     Late night coding session with lofi beats and city ambience
+  6. 🎵 Custom prompt
+
+Select mood [1]: 
+```
+
+### Command Line
+
+```bash
+# Generate with a preset mood
+fmag generate forest_cafe
+
+# Specify duration (in minutes)
+fmag generate night_coding_lofi --duration 3
+
+# Use a specific provider
+fmag generate ocean_meditation --provider bark
+
+# Custom prompt
+fmag generate "peaceful zen garden with wind chimes and bamboo water fountain" -d 5
+
+# Full options
+fmag generate calm_rain_office \
+  --duration 3 \
+  --provider audiogen \
+  --output ./my-ambience \
+  --debug
+```
+
+---
+
+## 🎨 Mood Presets
+
+| Mood | Description | Vibe |
+|------|-------------|------|
+| 🌧️ `calm_rain_office` | Gentle rain on a cozy office window | Calm, focused |
+| 🌲 `forest_cafe` | A cafe nestled in a forest clearing | Natural, warm |
+| 🚀 `deep_focus_spaceship` | Spacecraft drifting through deep space | Hypnotic, minimal |
+| 🌊 `ocean_meditation` | Waves on a secluded beach at sunset | Rhythmic, peaceful |
+| 🌙 `night_coding_lofi` | Late night coding with lofi beats | Chill, nostalgic |
+
+View all presets:
+
+```bash
+fmag moods
+```
+
+---
+
+## 🔌 Providers
+
+FMAG supports multiple AI audio generation backends:
+
+| Provider | Description | Setup |
+|----------|-------------|-------|
+| `audiogen` | OpenAI-compatible audio generation | Set `OPENAI_API_KEY` |
+| `bark` | Open-source text-to-audio model | `pip install bark` |
+
+View provider status:
+
+```bash
+fmag providers
+```
+
+### Provider Configuration
+
+```bash
+# AudioGen (OpenAI)
+export OPENAI_API_KEY="your-api-key"
+
+# Then generate
+fmag generate forest_cafe --provider audiogen
+```
+
+---
+
+## 📸 CLI Screenshots
+
+### Main Banner
+```
+    ███████╗███╗   ███╗ █████╗  ██████╗ 
+    ██╔════╝████╗ ████║██╔══██╗██╔════╝ 
+    █████╗  ██╔████╔██║███████║██║  ███╗
+    ██╔══╝  ██║╚██╔╝██║██╔══██║██║   ██║
+    ██║     ██║ ╚═╝ ██║██║  ██║╚██████╔╝
+    ╚═╝     ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ 
+
+Focus Mode Ambience Generator v1.0.0
+AI-powered soundscapes for deep focus
+```
+
+### Generation Output
+```
+┌─ 🎵 Selected Mood ───────────────────────────────┐
+│ 🌲 forest_cafe                                    │
+│                                                   │
+│ A peaceful cafe nestled in a forest clearing     │
+└───────────────────────────────────────────────────┘
+
+Duration: 3.0 minutes
+Provider: audiogen
+Output: ./output/
+
+⠋ 🌲 Generating audio with audiogen...
+
+┌─ 🎉 Complete ────────────────────────────────────┐
+│ ✓ Audio generated successfully!                  │
+│                                                   │
+│ Saved to: ./output/fmag-forest_cafe-20241125.mp3│
+│                                                   │
+│ Play with:                                        │
+│   afplay ./output/fmag-forest_cafe-20241125.mp3  │
+│   mpv --loop ./output/fmag-forest_cafe-20241125  │
+└───────────────────────────────────────────────────┘
+```
+
+---
+
+## 📐 Architecture
+
+### System Overview
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         FMAG CLI                             │
+├─────────────────────────────────────────────────────────────┤
+│  ┌─────────┐    ┌──────────┐    ┌────────────────────┐      │
+│  │   CLI   │───▶│   Core   │───▶│     Providers      │      │
+│  │ (Typer) │    │Generator │    │ ┌───────────────┐  │      │
+│  └─────────┘    └──────────┘    │ │   AudioGen    │  │      │
+│       │              │          │ └───────────────┘  │      │
+│       │              │          │ ┌───────────────┐  │      │
+│       ▼              ▼          │ │     Bark      │  │      │
+│  ┌─────────┐    ┌──────────┐    │ └───────────────┘  │      │
+│  │ Presets │    │  Audio   │    └────────────────────┘      │
+│  │ Library │    │  Utils   │                                 │
+│  └─────────┘    └──────────┘                                 │
+│                      │                                       │
+│                      ▼                                       │
+│                 ┌──────────┐                                 │
+│                 │  FFmpeg  │                                 │
+│                 └──────────┘                                 │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Generation Pipeline
+
+```mermaid
+graph LR
+    A[Mood Selection] --> B[Prompt Generation]
+    B --> C[AI Audio Generation]
+    C --> D[Volume Normalization]
+    D --> E[Fade In/Out]
+    E --> F[Loop Optimization]
+    F --> G[MP3 Export]
+```
+
+### Directory Structure
+
+```
+fmag-cli/
+├── src/
+│   └── fmag/
+│       ├── __init__.py       # Package exports
+│       ├── cli.py            # Typer CLI interface
+│       ├── core.py           # Generation orchestrator
+│       ├── audio_utils.py    # FFmpeg audio processing
+│       ├── presets.py        # Mood preset definitions
+│       └── providers/
+│           ├── __init__.py   # Provider registry
+│           ├── base.py       # Abstract provider interface
+│           ├── audiogen_provider.py
+│           └── bark_provider.py
+├── tests/
+│   ├── test_cli.py
+│   └── test_core.py
+├── demo_outputs/
+│   └── sample_output_commentary.md
+├── README.md
+├── LICENSE
+├── pyproject.toml
+├── requirements.txt
+└── example_commands.md
+```
+
+---
+
+## 🧪 Development
+
+### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/fmag-cli/fmag-cli.git
+cd fmag-cli
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # or `venv\Scripts\activate` on Windows
+
+# Install in development mode
+pip install -e ".[dev]"
+```
+
+### Testing
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=fmag --cov-report=term-missing
+
+# Run specific test file
+pytest tests/test_core.py -v
+```
+
+### Code Quality
+
+```bash
+# Format code
+black src tests
+
+# Lint
+ruff check src tests
+
+# Type checking (optional)
+mypy src
+```
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help:
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
+
+### Contribution Ideas
+
+- 🎨 Add new mood presets
+- 🔌 Implement new audio providers
+- 🌍 Add internationalization
+- 📱 Create a GUI wrapper
+- 🎵 Improve audio synthesis algorithms
+
+---
+
+## 📝 Example Output
+
+Generated files are saved to `./output/` by default:
+
+```
+output/
+├── fmag-forest_cafe-20241125_143022.mp3
+├── fmag-night_coding_lofi-20241125_144530.mp3
+└── fmag-ocean_meditation-20241125_150015.mp3
+```
+
+Each file is:
+- **192kbps MP3** format
+- **Loop-optimized** with crossfade
+- **Volume normalized** to -16 LUFS
+- **Fade in/out** (0.5 seconds each)
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- [Typer](https://typer.tiangolo.com/) - CLI framework
+- [Rich](https://rich.readthedocs.io/) - Beautiful terminal formatting
+- [FFmpeg](https://ffmpeg.org/) - Audio processing
+- [Pydub](https://github.com/jiaaro/pydub) - Audio manipulation
+
+---
+
+<div align="center">
+
+**Made with ❤️ for focus enthusiasts everywhere**
+
+[Report Bug](https://github.com/fmag-cli/fmag-cli/issues) · [Request Feature](https://github.com/fmag-cli/fmag-cli/issues)
+
+</div>
+
