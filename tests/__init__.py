@@ -1,0 +1,2 @@
+"""FMAG CLI Tests"""
+
